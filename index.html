@@ -1,734 +1,258 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Null Up.LLC</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Null Up</title>
 
-  <!-- ✅ Favicon = 水滴NUマーク（ブランドと同一デザイン） -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%27160%2098%2060%2060%27%20preserveAspectRatio%3D%27xMidYMid%20meet%27%3E%3Cpath%20d%3D%27M%20214.164062%20131.757812%20C%20214.074219%20144.117188%20203.554688%20154.0625%20190.671875%20153.96875%20C%20177.789062%20153.871094%20167.425781%20143.773438%20167.515625%20131.410156%20C%20167.609375%20119.050781%20191.085938%2099.414062%20191.085938%2099.414062%20C%20191.085938%2099.414062%20214.257812%20119.394531%20214.164062%20131.757812%20Z%27%20fill%3D%27%233D3D95%27/%3E%3Cg%20transform%3D%27scale(0.98)%27%3E%3Cpath%20d%3D%27M%20194.867188%20145.46875%20L%20188.425781%20145.421875%20L%20176.042969%20129.269531%20C%20175.398438%20128.433594%20174.933594%20127.757812%20174.644531%20127.242188%20L%20174.550781%20127.242188%20C%20174.660156%20128.097656%20174.707031%20129.417969%20174.691406%20131.203125%20L%20174.585938%20145.320312%20L%20168.621094%20145.277344%20L%20168.804688%20120.453125%20L%20175.667969%20120.5%20L%20187.597656%20136.199219%20C%20188.390625%20137.242188%20188.875%20137.902344%20189.050781%20138.183594%20L%20189.148438%20138.183594%20C%20189.023938%20137.585938%20188.96875%20136.441406%20188.984375%20134.753906%20L%20189.089844%20120.601562%20L%20195.054688%20120.644531%20Z%27%20fill%3D%27%23ffffff%27/%3E%3Cpath%20d%3D%27M%20213.0625%20134.46875%20C%20213.0625%20141.792969%20209.015625%20145.457031%20200.925781%20145.457031%20C%20193.109375%20145.457031%20189.203125%20141.890625%20189.203125%20134.753906%20L%20189.203125%20120.464844%20L%20195.441406%20120.464844%20L%20195.441406%20134.785156%20C%20195.441406%20138.875%20197.355469%20140.921875%20201.1875%20140.921875%20C%20204.957031%20140.921875%20206.84375%20138.949219%20206.84375%20135.007812%20L%20206.84375%20120.464844%20L%20213.0625%20120.464844%20Z%27%20fill%3D%27%23ffffff%27/%3E%3C/g%3E%3C/svg%3E" />
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%27160%2098%2060%2060%27%20preserveAspectRatio%3D%27xMidYMid%20meet%27%3E%3Cpath%20d%3D%27M%20214.164062%20131.757812%20C%20214.074219%20144.117188%20203.554688%20154.0625%20190.671875%20153.96875%20C%20177.789062%20153.871094%20167.425781%20143.773438%20167.515625%20131.410156%20C%20167.609375%20119.050781%20191.085938%2099.414062%20191.085938%2099.414062%20C%20191.085938%2099.414062%20214.257812%20119.394531%20214.164062%20131.757812%20Z%27%20fill%3D%27%233D3D95%27/%3E%3Cg%20transform%3D%27scale(0.98)%27%3E%3Cpath%20d%3D%27M%20194.867188%20145.46875%20L%20188.425781%20145.421875%20L%20176.042969%20129.269531%20C%20175.398438%20128.433594%20174.933594%20127.757812%20174.644531%20127.242188%20L%20174.550781%20127.242188%20C%20174.660156%20128.097656%20174.707031%20129.417969%20174.691406%20131.203125%20L%20174.585938%20145.320312%20L%20168.621094%20145.277344%20L%20168.804688%20120.453125%20L%20175.667969%20120.5%20L%20187.597656%20136.199219%20C%20188.390625%20137.242188%20188.875%20137.902344%20189.050781%20138.183594%20L%20189.148438%20138.183594%20C%20189.023938%20137.585938%20188.96875%20136.441406%20188.984375%20134.753906%20L%20189.089844%20120.601562%20L%20195.054688%20120.644531%20Z%27%20fill%3D%27%23ffffff%27/%3E%3Cpath%20d%3D%27M%20213.0625%20134.46875%20C%20213.0625%20141.792969%20209.015625%20145.457031%20200.925781%20145.457031%20C%20193.109375%20145.457031%20189.203125%20141.890625%20189.203125%20134.753906%20L%20189.203125%20120.464844%20L%20195.441406%20120.464844%20L%20195.441406%20134.785156%20C%20195.441406%20138.875%20197.355469%20140.921875%20201.1875%20140.921875%20C%20204.957031%20140.921875%20206.84375%20138.949219%20206.84375%20135.007812%20L%20206.84375%20120.464844%20L%20213.0625%20120.464844%20Z%27%20fill%3D%27%23ffffff%27/%3E%3C/g%3E%3C/svg%3E" />
-
-  <!-- ✅ Splash preload -->
-  <link rel="preload" as="image" href="null-up-wallpaper.jpg" media="(min-width: 901px)">
-  <link rel="preload" as="image" href="imagenull-up-wallpaper-mobile.jpg" media="(max-width: 900px)">
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet" />
+  <!-- Favicon（既存のものを使用） -->
+  <link rel="icon" href="favicon.ico" />
 
   <style>
-    :root{
-      --bg:#3D3D95;
-      --bg-soft:#4A4AB0;
-      --text:#fff;
-      --text-sub:#e5e7ff;
-      --border:rgba(255,255,255,.25);
-      --border-width:2px;
-
-      /* ✅ PC splash image */
-      --loader-bg: url("null-up-wallpaper.jpg");
-    }
-    /* ✅ Mobile splash image */
-    @media (max-width: 900px){
-      :root{ --loader-bg: url("imagenull-up-wallpaper-mobile.jpg"); }
+    :root {
+      --nu-purple: rgb(75, 74, 165);
+      --text: #ffffff;
     }
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family:Inter,"Noto Sans JP",system-ui,sans-serif;
-      overflow-x:hidden;
-      -webkit-font-smoothing:antialiased;
-    }
-    .u-caps{ text-transform:uppercase; letter-spacing:.05em; font-size:.75rem; font-weight:600; }
-
-    /* Splash / Loader */
-    .loader{
-      position:fixed; inset:0;
-      z-index:9999;
-      background:var(--bg);
-      transform: translateY(0);
-      transition: transform .85s cubic-bezier(.76,0,.24,1);
-    }
-    .loader::before{
-      content:"";
-      position:absolute; inset:0;
-      background-image: var(--loader-bg);
-      background-repeat:no-repeat;
-      background-size: contain;  /* ✅ 切れずに収める */
-      background-position: center;
-      background-color: var(--bg);
-    }
-    .loader.hide{
-      transform: translateY(-110%);
-      pointer-events:none;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    /* Header */
-    header{ padding: 2vw 2vw 1vw; }
-    .header-top{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:1rem;
-      flex-wrap:wrap;
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: var(--nu-purple);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+      overflow-x: hidden;
     }
 
-    /* ✅ ブランド（ファビコンと同じSVGに戻す） */
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:.7rem;
-      padding:.25rem .25rem;
-      user-select:none;
-    }
-    .brand-mark{
-      width:34px;
-      height:34px;
-      display:inline-block;
-      flex:0 0 auto;
-    }
-    .brand-mark svg{ width:100%; height:100%; display:block; }
-    .brand-mark .logo-primary{ fill:#ffffff; }       /* 水滴の白 */
-    .brand-mark .logo-secondary{ fill:#3D3D95; }     /* 文字の濃紺 */
-
-    .brand-name{
-      font-weight:800;
-      opacity:.95;
-      letter-spacing:.01em;
-      font-size:1.05rem;
-      line-height:1;
-      white-space:nowrap;
+    /* ===== Loader (PC) ===== */
+    .loader {
+      position: fixed;
+      inset: 0;
+      background: var(--nu-purple)
+        url("null-up-wallpaper.jpg") center / cover no-repeat;
+      z-index: 9999;
+      animation: loaderOut 1s ease forwards;
+      animation-delay: 0.8s;
     }
 
-    .lang-switch{
-      display:inline-flex;
-      gap:.5rem;
-      padding:.25rem;
-      border:1px solid rgba(255,255,255,.25);
-      border-radius:999px;
-      background:rgba(255,255,255,.06);
-      backdrop-filter: blur(6px);
-    }
-    .lang-btn{
-      appearance:none;
-      border:0;
-      background:transparent;
-      color:#fff;
-      font:inherit;
-      font-size:.8rem;
-      font-weight:700;
-      padding:.45rem .8rem;
-      border-radius:999px;
-      cursor:pointer;
-      opacity:.8;
-    }
-    .lang-btn[aria-pressed="true"]{
-      background:rgba(255,255,255,.18);
-      opacity:1;
-    }
-    .lang-btn:focus-visible{
-      outline:2px solid rgba(255,255,255,.55);
-      outline-offset:2px;
+    @keyframes loaderOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
     }
 
-    .hero-title{
-      font-size:11vw;
-      line-height:.9;
-      font-weight:900;
-      letter-spacing:-.04em;
-      margin: 2.2rem 0 .75rem;
-      text-transform:uppercase;
-      word-break:keep-all;
+    /* ===== Mobile Hero ===== */
+    .mobile-hero {
+      display: none;
     }
 
-    /* Marquee */
-    .marquee-wrap{
-      overflow:hidden;
-      white-space:nowrap;
-      border-top:var(--border-width) solid var(--border);
-      border-bottom:var(--border-width) solid var(--border);
-      padding:1.35rem 0;
-      background:var(--bg-soft);
-    }
-    .marquee-content{ display:inline-block; animation: marquee 20s linear infinite; }
-    .marquee-text{
-      font-size:4rem;
-      font-weight:900;
-      -webkit-text-stroke:1px #fff;
-      color:transparent;
-      margin-right:2rem;
-    }
-    @keyframes marquee{
-      0%{ transform:translateX(0); }
-      100%{ transform:translateX(-50%); }
+    @media (max-width: 900px) {
+      .loader {
+        display: none;
+      }
+
+      body {
+        background: var(--nu-purple);
+      }
+
+      .mobile-hero {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: var(--nu-purple);
+      }
+
+      .mobile-hero img {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        display: block;
+        background: var(--nu-purple);
+      }
     }
 
-    /* Sections */
-    .grid-section{
-      display:grid;
-      grid-template-columns:18% 82%;
-      position:relative;
-      background:var(--bg);
-      background-image:
-        linear-gradient(
-          to right,
-          transparent calc(18% - (var(--border-width) / 2)),
-          var(--border) calc(18% - (var(--border-width) / 2)),
-          var(--border) calc(18% + (var(--border-width) / 2)),
-          transparent calc(18% + (var(--border-width) / 2))
-        );
-      background-repeat:no-repeat;
-      background-size:100% 100%;
-    }
-    .grid-section::after{
-      content:"";
-      position:absolute; left:0; right:0; bottom:0;
-      border-bottom:var(--border-width) solid var(--border);
-      pointer-events:none;
-    }
-    .grid-section + .grid-section::before{
-      content:"";
-      position:absolute; left:0; right:0; top:0;
-      border-top:var(--border-width) solid var(--border);
-      pointer-events:none;
-    }
-    .sticky-col{
-      padding:1.6rem 2vw;
-      position:sticky;
-      top:0;
-      height:fit-content;
-      align-self:start;
-      display:flex;
-      flex-direction:column;
-      gap:.75rem;
-      z-index:1;
-    }
-    .content-col{ padding:0; }
-
-    /* Manifesto */
-    .big-lead{
-      margin:0;
-      padding:2.2rem 4rem;
-      display:flex;
-      flex-direction:column;
-      gap:1rem;
-    }
-    .big-lead .lead-head{
-      display:block;
-      font-size:clamp(2.1rem,3vw,3.2rem);
-      font-weight:900;
-      letter-spacing:-.02em;
-      line-height:1.15;
-    }
-    .big-lead .lead-sub{
-      display:block;
-      font-size:clamp(1.1rem,1.6vw,1.6rem);
-      font-weight:700;
-      line-height:1.55;
-      color:var(--text-sub);
-    }
-
-    /* Works */
-    .work-item{
-      border-bottom:1px solid rgba(255,255,255,.18);
-      padding:3rem 4rem;
-      transition:background .25s ease;
-      cursor:pointer;
-      user-select:none;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:1.5rem;
-    }
-    .work-item:last-child{ border-bottom:none; }
-    .work-item:hover{ background:rgba(255,255,255,.06); }
-    .work-title{ font-size:4vw; margin:0; font-weight:800; line-height:1; }
-    .work-cta{
-      display:inline-flex;
-      align-items:center;
-      gap:.5rem;
-      font-size:.95rem;
-      color:rgba(255,255,255,.85);
-      border:1px solid rgba(255,255,255,.20);
-      padding:.55rem .9rem;
-      border-radius:999px;
-      background:rgba(255,255,255,.06);
-      backdrop-filter: blur(6px);
-      white-space:nowrap;
-    }
-
-    /* Profile */
-    .company-table{ width:100%; border-collapse:collapse; }
-    .company-table tr{ border-bottom:1px solid rgba(255,255,255,.18); }
-    .company-table th,.company-table td{ padding:1.25rem 2.5rem; text-align:left; vertical-align:top; }
-    .company-table th{ width:30%; font-weight:600; color:var(--text-sub); }
-    .company-table td{ line-height:1.6; }
-
-    /* Footer */
-    .footer{
-      border-top:var(--border-width) solid var(--border);
-      padding:6rem 4rem 3rem;
-    }
-    .footer-big{ font-size:10vw; font-weight:900; line-height:.9; margin-bottom:4rem; }
-    .footer-links{ display:flex; flex-wrap:wrap; gap:1rem 1.6rem; }
-    .footer-links a{
-      color:#fff;
-      text-decoration:none;
-      font-size:1.5rem;
-      border-bottom:1px solid rgba(255,255,255,.25);
-    }
-
-    /* Modal */
-    .modal{
-      position:fixed; inset:0;
-      z-index:10000;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: min(4vw, 24px);
-      background: rgba(7,7,22,.62);
-      backdrop-filter: blur(8px);
-    }
-    .modal[aria-hidden="false"]{ display:flex; }
-
-    .modal-card{
-      width: min(1040px, 100%);
-      border-radius: 18px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.22);
-      background: rgba(255,255,255,.06);
-      box-shadow: 0 25px 80px rgba(0,0,0,.35);
-    }
-    .modal-top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:1rem;
-      padding: 14px 16px 12px;
-    }
-    .modal-title{
-      font-size: 1.05rem;
-      font-weight: 900;
-      letter-spacing: -.02em;
-      margin:0;
-    }
-    .modal-controls{
-      display:flex;
-      gap:.5rem;
-      align-items:center;
-    }
-    .modal-btn{
-      appearance:none;
-      border:1px solid rgba(255,255,255,.22);
-      background: rgba(255,255,255,.08);
-      color:#fff;
-      border-radius: 12px;
-      padding: 10px 12px;
-      cursor:pointer;
-      font-weight: 900;
-      line-height:1;
-    }
-
-    .modal-media{
-      position:relative;
-      background: rgba(0,0,0,.18);
-      border-top: 1px solid rgba(255,255,255,.14);
-    }
-    .modal-media img{
-      width:100%;
-      height: min(64vh, 560px);
-      display:block;
-      object-fit: contain;
-      background: var(--bg);
-    }
-
-    .modal-nav{
-      position:absolute;
-      inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      pointer-events:none;
-      padding: 0 10px;
-    }
-    .modal-arrow{
-      pointer-events:auto;
-      width:44px;height:44px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.22);
-      background: rgba(255,255,255,.10);
-      backdrop-filter: blur(8px);
-      display:grid;
-      place-items:center;
-      cursor:pointer;
-      font-weight:900;
-      color:#fff;
-    }
-
-    .modal-text{
-      padding: 16px 18px 20px;
-      border-top: 1px solid rgba(255,255,255,.14);
-    }
-    .modal-desc{
-      margin:0;
-      line-height:1.75;
-      color: rgba(255,255,255,.92);
+    /* ===== Header ===== */
+    header {
+      position: fixed;
+      top: 16px;
+      left: 20px;
+      z-index: 10;
       font-weight: 600;
-      font-size: .98rem;
-    }
-    .modal-hint{
-      margin: 10px 0 0;
-      opacity: .7;
-      font-size: .85rem;
+      letter-spacing: 0.05em;
     }
 
-    /* Responsive */
-    @media (max-width: 900px){
-      header{ padding:1.1rem; }
-      .brand-mark{ width:30px;height:30px; }
-      .brand-name{ font-size:1rem; }
-      .hero-title{ font-size:16vw; margin:1.1rem 0 .75rem; }
+    /* ===== Main ===== */
+    main {
+      padding-top: 140px;
+      text-align: center;
+    }
 
-      .grid-section{ grid-template-columns:1fr; background-image:none; }
-      .sticky-col{
-        position:relative;
-        padding:1.1rem 1.25rem;
-        border-bottom:var(--border-width) solid var(--border);
-      }
+    .hero-title {
+      font-size: clamp(36px, 8vw, 96px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 80px;
+    }
 
-      .big-lead{ padding:1.6rem 1.25rem; gap:.75rem; }
-      .big-lead .lead-head{ font-size: clamp(1.85rem, 6vw, 2.4rem); }
-      .big-lead .lead-sub{ font-size: clamp(1.0rem, 3.8vw, 1.25rem); }
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+      max-width: 1000px;
+      margin: 0 auto 120px;
+      padding: 0 24px;
+    }
 
-      .work-item{
-        padding:1.4rem 1.25rem;
-        flex-direction:column;
-        align-items:flex-start;
-      }
-      .work-title{ font-size:2rem; }
-      .work-cta{ align-self:flex-start; }
+    .service {
+      border: 1px solid rgba(255,255,255,0.4);
+      padding: 32px 24px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
 
-      .company-table th,.company-table td{ display:block; width:100%; padding:.85rem 1.25rem; }
-      .company-table th{ padding-bottom:0; color:#fff; font-size:.8rem; }
-      .company-table td{ padding-top:.5rem; border-bottom:1px solid rgba(255,255,255,.12); }
+    .service:hover {
+      background: rgba(255,255,255,0.08);
+    }
 
-      .footer{ padding:3.4rem 1.25rem 2.4rem; }
-      .footer-big{ font-size:14vw; margin-bottom:1.8rem; }
-      .footer-links a{ font-size:1.2rem; }
+    /* ===== Modal ===== */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+    }
 
-      .modal-media img{ height: min(60vh, 420px); }
-      .modal-arrow{ width:42px;height:42px; }
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--nu-purple);
+      max-width: 90vw;
+      max-height: 90vh;
+      padding: 24px;
+      overflow: auto;
+      position: relative;
+    }
+
+    .modal-content img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 16px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      text-align: center;
+      padding: 40px 0 24px;
+      font-size: 14px;
+      opacity: 0.7;
     }
   </style>
 </head>
 
 <body>
-  <!-- Splash -->
-  <div class="loader" id="loader" aria-hidden="true"></div>
 
-  <!-- Works modal -->
-  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="modal-card" role="document">
-      <div class="modal-top">
-        <h3 class="modal-title" id="modalTitle">Title</h3>
-        <div class="modal-controls">
-          <button class="modal-btn" id="modalPrevTop" type="button" aria-label="Previous">←</button>
-          <button class="modal-btn" id="modalNextTop" type="button" aria-label="Next">→</button>
-          <button class="modal-btn" id="modalClose" type="button" aria-label="Close">Close</button>
-        </div>
-      </div>
+  <!-- PC Loader -->
+  <div class="loader"></div>
 
-      <div class="modal-media">
-        <img id="modalImg" alt="" loading="eager" />
-        <div class="modal-nav" aria-hidden="true">
-          <button class="modal-arrow" id="modalPrev" type="button" aria-label="Previous">←</button>
-          <button class="modal-arrow" id="modalNext" type="button" aria-label="Next">→</button>
-        </div>
-      </div>
+  <!-- Mobile First View -->
+  <div class="mobile-hero">
+    <img src="imagenull-up-wallpaper-mobile.jpg" alt="Null Up">
+  </div>
 
-      <div class="modal-text">
-        <p class="modal-desc" id="modalDesc"></p>
-        <p class="modal-hint" id="modalHint"></p>
-      </div>
+  <!-- Header -->
+  <header>Null Up</header>
+
+  <!-- Main -->
+  <main>
+    <div class="hero-title">
+      CREATING<br>GAMING<br>TRENDS.
+    </div>
+
+    <div class="services">
+      <div class="service" data-modal="blockchain">Blockchain</div>
+      <div class="service" data-modal="ai">AI</div>
+      <div class="service" data-modal="metaverse">Metaverse</div>
+      <div class="service" data-modal="ma">M&amp;A</div>
+    </div>
+  </main>
+
+  <!-- Modals -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <div class="modal-close" id="modalClose">×</div>
+      <img id="modalImg" src="" alt="">
+      <div id="modalText"></div>
     </div>
   </div>
 
-  <header>
-    <div class="header-top">
-      <!-- ✅ 左上ロゴ：ファビコンと同じ水滴NUマーク -->
-      <div class="brand" aria-label="Null Up">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="160 98 60 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Null Up mark">
-            <path class="logo-primary" d="M 214.164062 131.757812 C 214.074219 144.117188 203.554688 154.0625 190.671875 153.96875 C 177.789062 153.871094 167.425781 143.773438 167.515625 131.410156 C 167.609375 119.050781 191.085938 99.414062 191.085938 99.414062 C 191.085938 99.414062 214.257812 119.394531 214.164062 131.757812 Z"/>
-            <path class="logo-secondary" d="M 194.867188 145.46875 L 188.425781 145.421875 L 176.042969 129.269531 C 175.398438 128.433594 174.933594 127.757812 174.644531 127.242188 L 174.550781 127.242188 C 174.660156 128.097656 174.707031 129.417969 174.691406 131.203125 L 174.585938 145.320312 L 168.621094 145.277344 L 168.804688 120.453125 L 175.667969 120.5 L 187.597656  136.199219 C 188.390625 137.242188 188.875 137.902344 189.050781 138.183594 L 189.148438 138.183594 C 189.023938 137.585938 188.96875 136.441406 188.984375 134.753906 L 189.089844 120.601562 L 195.054688 120.644531 Z"/>
-            <path class="logo-secondary" d="M 213.0625 134.46875 C 213.0625 141.792969 209.015625 145.457031 200.925781 145.457031 C 193.109375 145.457031 189.203125 141.890625 189.203125 134.753906 L 189.203125 120.464844 L 195.441406 120.464844 L 195.441406 134.785156 C 195.441406 138.875 197.355469 140.921875 201.1875 140.921875 C 204.957031 140.921875 206.84375 138.949219 206.84375 135.007812 L 206.84375 120.464844 L 213.0625 120.464844 Z"/>
-          </svg>
-        </span>
-        <div class="brand-name">Null Up</div>
-      </div>
-
-      <nav class="lang-switch" aria-label="Language">
-        <button class="lang-btn" type="button" id="lang-ja" aria-pressed="false">日本語</button>
-        <button class="lang-btn" type="button" id="lang-en" aria-pressed="false">ENGLISH</button>
-      </nav>
-    </div>
-
-    <h1 class="hero-title" id="hero-title">CREATING<br>GAMING TRENDS.</h1>
-  </header>
-
-  <div class="marquee-wrap">
-    <div class="marquee-content" id="marquee-text">
-      <span class="marquee-text">CREATING NEW GAMING TRENDS WITH NEW TECHNOLOGY! / CREATING NEW GAMING TRENDS WITH NEW TECHNOLOGY! / CREATING NEW GAMING TRENDS WITH NEW TECHNOLOGY! / </span>
-    </div>
-  </div>
-
-  <section class="grid-section">
-    <div class="sticky-col"><span class="u-caps" id="sec1-title">01 / Manifesto</span></div>
-    <div class="content-col">
-      <p id="main-lead" class="big-lead"></p>
-    </div>
-  </section>
-
-  <section class="grid-section">
-    <div class="sticky-col"><span class="u-caps" id="sec2-title">02 / Works</span></div>
-    <div class="content-col" id="works-container"></div>
-  </section>
-
-  <section class="grid-section">
-    <div class="sticky-col"><span class="u-caps" id="sec3-title">03 / Profile</span></div>
-    <div class="content-col">
-      <table class="company-table">
-        <tr><th>COMPANY NAME</th><td id="co-name">Null Up.LLC Inc.</td></tr>
-        <tr><th>ESTABLISHED</th><td>2023.07.12</td></tr>
-        <tr><th>BUSINESS</th><td id="co-business">ゲーム・エンタメ企業支援 / 営業代行 / M＆A支援</td></tr>
-        <tr><th>REPRESENTATIVE</th><td>Shunya Saito</td></tr>
-      </table>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="footer-big" id="footer-title">LET'S TALK.</div>
-    <div class="footer-links" id="footer-links"></div>
-    <div style="margin-top:4rem;opacity:.5;font-size:.8rem;">&copy; <span id="year"></span> <span id="footer-copy"></span></div>
+  <!-- Footer -->
+  <footer>
+    © 2023 Null Up
   </footer>
 
   <script>
-    const config = {
-      works: [
-        { key: 1, img: "image/image1.jpg" },
-        { key: 2, img: "image/image2.jpg" },
-        { key: 3, img: "image/image3.jpg" },
-        { key: 4, img: "image/image4.jpg" },
-      ],
-      locales: {
-        ja: {
-          heroTitle: "CREATING<br>GAMING TRENDS.",
-          lead: "<span class='lead-head'>挑戦者と未来をつくる。</span><span class='lead-sub'>Null Upは、新技術でエンタメの可能性を広げる企業を支援します！</span>",
-          worksTitle: "02 / Works",
-          manifestoTitle: "01 / Manifesto",
-          profileTitle: "03 / Profile",
-          footerTitle: "LET'S TALK.",
-          business: "ゲーム・エンタメ企業支援 / 営業代行 / M＆A支援",
-          footerCopy: "Null Up.LLC",
-          modalHint: "左右ボタン / キーボード ← → / 画面外タップ / ESC で閉じる",
-          cta: "View",
-          workText: {
-            1:{ title:"Blockchain", desc:"ブロックチェーンゲーム企業を支援し、安心安全なオンボーディングから大手PF連携、グラント獲得まで一貫して伴走します。" },
-            2:{ title:"AI", desc:"AIを活用した新規サービス創出から、AIツールの営業代行まで。事業成長を加速させる実践的な支援を提供します。" },
-            3:{ title:"Metaverse", desc:"Roblox・Fortniteなどのメタバース開発を行う企業や、これから参入するクライアントを支援し、新しい体験づくりを後押しします。" },
-            4:{ title:"M&A", desc:"M&Aを望む企業同士のマッチングから、プロジェクトファイナンス支援まで。成長戦略に最適な選択を実現するサポートを行います。" }
-          }
-        },
-        en: {
-          heroTitle: "CREATING<br>GAMING TRENDS.",
-          lead: "<span class='lead-head'>Build the future with challengers.</span><span class='lead-sub'>Null Up supports companies expanding entertainment possibilities through new technology.</span>",
-          worksTitle: "02 / Works",
-          manifestoTitle: "01 / Manifesto",
-          profileTitle: "03 / Profile",
-          footerTitle: "LET'S TALK.",
-          business: "Game & entertainment support / Sales outsourcing / M&A advisory",
-          footerCopy: "Null Up.LLC",
-          modalHint: "Use arrows / ← → keys / tap outside / ESC to close",
-          cta: "View",
-          workText: {
-            1:{ title:"Blockchain", desc:"We support blockchain game teams end-to-end—from safe onboarding to major platform partnerships and grant acquisition." },
-            2:{ title:"AI", desc:"From creating new services with AI to outbound sales for AI tools—we deliver practical support that accelerates growth." },
-            3:{ title:"Metaverse", desc:"We help studios building on platforms like Roblox and Fortnite—and guide newcomers in crafting next-gen experiences." },
-            4:{ title:"M&A", desc:"From partner matching to project finance support—we help you execute the right choice for your growth strategy." }
-          }
-        }
+    const modal = document.getElementById("modal");
+    const modalImg = document.getElementById("modalImg");
+    const modalText = document.getElementById("modalText");
+    const modalClose = document.getElementById("modalClose");
+
+    const data = {
+      blockchain: {
+        img: "image/image1.jpg",
+        text: "Blockchain関連支援"
       },
-      links: [{ label:"Contact", url:"mailto:shunya.s@null-up.com" }]
+      ai: {
+        img: "image/image2.jpg",
+        text: "AI活用支援"
+      },
+      metaverse: {
+        img: "image/image3.jpg",
+        text: "Metaverse開発支援"
+      },
+      ma: {
+        img: "image/image4.jpg",
+        text: "M&A支援"
+      }
     };
 
-    const $ = (id)=>document.getElementById(id);
-    const setHTML = (id, html)=>{ const el=$(id); if(el) el.innerHTML=html; };
-    const setText = (id, t)=>{ const el=$(id); if(el) el.textContent=t; };
-
-    let currentLang = "ja";
-    let currentWorkIndex = 0;
-
-    function hideLoader(){
-      const loader = $("loader");
-      if(!loader) return;
-      loader.classList.add("hide");
-      setTimeout(()=>{ loader.style.display="none"; }, 1200);
-    }
-
-    function getPack(){
-      return config.locales[currentLang] || config.locales.ja;
-    }
-
-    function renderModalByIndex(idx){
-      const pack = getPack();
-      const work = config.works[idx];
-      const info = pack.workText[work.key];
-
-      $("modalTitle").textContent = info.title;
-      $("modalDesc").textContent = info.desc;
-      $("modalHint").textContent = pack.modalHint;
-
-      const img = $("modalImg");
-      img.alt = info.title;
-      img.src = work.img;
-    }
-
-    function openModal(index){
-      currentWorkIndex = index;
-      renderModalByIndex(currentWorkIndex);
-      const modal = $("modal");
-      modal.setAttribute("aria-hidden","false");
-      document.body.style.overflow = "hidden";
-    }
-
-    function closeModal(){
-      const modal = $("modal");
-      modal.setAttribute("aria-hidden","true");
-      document.body.style.overflow = "";
-    }
-
-    function nextWork(){
-      currentWorkIndex = (currentWorkIndex + 1) % config.works.length;
-      renderModalByIndex(currentWorkIndex);
-    }
-
-    function prevWork(){
-      currentWorkIndex = (currentWorkIndex - 1 + config.works.length) % config.works.length;
-      renderModalByIndex(currentWorkIndex);
-    }
-
-    function wireModalEvents(){
-      const modal = $("modal");
-      $("modalClose").addEventListener("click", closeModal);
-      $("modalNext").addEventListener("click", nextWork);
-      $("modalPrev").addEventListener("click", prevWork);
-      $("modalNextTop").addEventListener("click", nextWork);
-      $("modalPrevTop").addEventListener("click", prevWork);
-
-      modal.addEventListener("click", (e)=>{
-        if(e.target === modal) closeModal();
+    document.querySelectorAll(".service").forEach(el => {
+      el.addEventListener("click", () => {
+        const key = el.dataset.modal;
+        modalImg.src = data[key].img;
+        modalText.textContent = data[key].text;
+        modal.classList.add("active");
       });
+    });
 
-      document.addEventListener("keydown", (e)=>{
-        const isOpen = modal.getAttribute("aria-hidden") === "false";
-        if(!isOpen) return;
-        if(e.key === "Escape") closeModal();
-        if(e.key === "ArrowRight") nextWork();
-        if(e.key === "ArrowLeft") prevWork();
-      });
-    }
+    modalClose.addEventListener("click", () => {
+      modal.classList.remove("active");
+    });
 
-    function buildWorks(){
-      const pack = getPack();
-      const cont = $("works-container");
-      cont.innerHTML = "";
-
-      config.works.forEach((w, idx)=>{
-        const info = pack.workText[w.key];
-        const item = document.createElement("div");
-        item.className = "work-item";
-        item.setAttribute("role","button");
-        item.setAttribute("tabindex","0");
-        item.setAttribute("aria-label", `${info.title} open`);
-
-        item.innerHTML = `
-          <h3 class="work-title">${info.title}</h3>
-          <span class="work-cta">${pack.cta} →</span>
-        `;
-
-        item.addEventListener("click", ()=>openModal(idx));
-        item.addEventListener("keydown", (e)=>{
-          if(e.key === "Enter" || e.key === " "){
-            e.preventDefault();
-            openModal(idx);
-          }
-        });
-
-        cont.appendChild(item);
-      });
-    }
-
-    function applyLang(lang, source="auto"){
-      const normalized = (lang === "en") ? "en" : "ja";
-      currentLang = normalized;
-      document.documentElement.lang = currentLang;
-
-      const pack = getPack();
-      $("hero-title").innerHTML = pack.heroTitle;
-      setHTML("main-lead", pack.lead);
-
-      setText("sec1-title", pack.manifestoTitle);
-      setText("sec2-title", pack.worksTitle);
-      setText("sec3-title", pack.profileTitle);
-      setText("footer-title", pack.footerTitle);
-      setText("co-business", pack.business);
-
-      buildWorks();
-
-      setText("footer-copy", pack.footerCopy);
-      setText("year", String(new Date().getFullYear()));
-
-      const jaBtn = $("lang-ja"), enBtn = $("lang-en");
-      jaBtn.setAttribute("aria-pressed", currentLang==="ja" ? "true" : "false");
-      enBtn.setAttribute("aria-pressed", currentLang==="en" ? "true" : "false");
-
-      if(source==="user"){
-        try{ localStorage.setItem("axis_lang", currentLang); }catch(e){}
-      }
-
-      const modal = $("modal");
-      if(modal.getAttribute("aria-hidden")==="false"){
-        renderModalByIndex(currentWorkIndex);
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", ()=>{
-      setTimeout(hideLoader, 850);
-
-      $("lang-ja").addEventListener("click", ()=>applyLang("ja","user"));
-      $("lang-en").addEventListener("click", ()=>applyLang("en","user"));
-
-      let initial="ja";
-      try{
-        const saved = localStorage.getItem("axis_lang");
-        if(saved==="ja" || saved==="en") initial=saved;
-      }catch(e){}
-      applyLang(initial,"auto");
-
-      const links = $("footer-links");
-      links.innerHTML = "";
-      config.links.forEach(l=>{
-        const a=document.createElement("a");
-        a.href=l.url;
-        a.textContent=l.label;
-        links.appendChild(a);
-      });
-
-      wireModalEvents();
+    modal.addEventListener("click", e => {
+      if (e.target === modal) modal.classList.remove("active");
     });
   </script>
+
 </body>
 </html>
