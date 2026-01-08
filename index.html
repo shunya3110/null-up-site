@@ -198,7 +198,6 @@
       grid-template-columns: 18% 82%;
       position: relative;
       background: var(--bg);
-      /* draw the vertical divider as a background so it never “breaks” */
       background-image:
         linear-gradient(
           to right,
@@ -231,7 +230,6 @@
 
     .sticky-col {
       padding: 1.6rem 2vw;
-      /* border-right moved to .grid-section background-image for continuity */
       position: sticky;
       top: 0;
       height: fit-content;
@@ -247,11 +245,25 @@
 
     /* Manifesto */
     .big-lead {
-      font-size: clamp(1.6rem, 2.2vw, 2.4rem);
-      font-weight: 700;
-      line-height: 1.35;
-      padding: 2.2rem 4rem 2.2rem;
       margin: 0;
+      padding: 2.2rem 4rem 2.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .big-lead .lead-head {
+      display: block;
+      font-size: clamp(2.1rem, 3vw, 3.2rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+    .big-lead .lead-sub {
+      display: block;
+      font-size: clamp(1.1rem, 1.6vw, 1.6rem);
+      font-weight: 700;
+      line-height: 1.55;
+      color: var(--text-sub);
     }
 
     /* Works */
@@ -390,7 +402,10 @@
       }
       .grid-section::before { display: none; }
 
-      .big-lead { font-size: 1.45rem; padding: 1.6rem 1.25rem; }
+      .big-lead { padding: 1.6rem 1.25rem; gap: 0.75rem; }
+      .big-lead .lead-head { font-size: clamp(1.85rem, 6vw, 2.4rem); }
+      .big-lead .lead-sub { font-size: clamp(1.0rem, 3.8vw, 1.25rem); }
+
       .work-item { padding: 1.6rem 1.25rem; }
       .work-title { font-size: 2rem; margin-top: 0.5rem; }
       .cursor-img { display: none; }
@@ -525,7 +540,7 @@
           companyNameFull: "Null Up.LLC Inc.",
           heroTitle: "CREATING<br>GAMING TRENDS.",
           marquee: "CREATING NEW GAMING TRENDS WITH NEW TECHNOLOGY! / ",
-          lead: "私たちは未来への挑戦者を支える。<br>革新的なテクノロジーが芽吹く場所に、<br>新たなゲーム・エンタメの可能性が広がっていく。",
+          lead: "<span class=\"lead-head\">挑戦者と未来をつくる。</span><span class=\"lead-sub\">Null Upは、新技術でエンタメの可能性を広げる企業を支援します！</span>",
           business: "ゲーム・エンタメ企業支援 / 営業代行 / M＆A支援",
           sections: {
             sec1Title: "01 / Manifesto",
