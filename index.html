@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
-
   <title>Null Up.LLC</title>
 
   <!-- Favicon (SVG) : NU mark (centered) -->
@@ -85,7 +84,7 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 1rem;
-      flex-wrap: wrap; /* allow wrapping on small screens */
+      flex-wrap: wrap;
     }
 
     .header-actions{
@@ -192,7 +191,7 @@
       100% { transform: translateX(-50%); }
     }
 
-    /* Grid Sections (lines fixed / no breaks) */
+    /* Grid Sections */
     .grid-section {
       display: grid;
       grid-template-columns: 18% 82%;
@@ -376,17 +375,32 @@
     @media (max-width: 900px) {
       header { padding: 1.25rem; }
 
-      /* Header / brand (mobile: stack to avoid overflow) */
-      .header-top { flex-direction: column; align-items: stretch; gap: 0.9rem; }
-      .brand { width: 100%; max-width: 100%; min-width: 0; }
-      .logo { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-      .header-actions { width: 100%; justify-content: space-between; }
+      /* Make the logo block perfectly centered on mobile */
+      .header-top { flex-direction: column; align-items: center; gap: 0.9rem; }
+
+      .brand {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        justify-content: center;
+      }
+      .logo {
+        max-width: calc(100vw - 2.5rem);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: center;
+      }
+
+      .header-actions{
+        width: 100%;
+        justify-content: center;
+      }
 
       .brand { min-height: 28px; gap: 0.5rem; }
       .brand-mark { width: 28px; height: 28px; }
       .logo { font-size: 1.25rem; }
 
-      .header-actions { gap: 0.75rem; }
       .lang-switch { padding: 0.2rem; }
       .lang-btn { font-size: 0.78rem; padding: 0.42rem 0.7rem; }
 
@@ -418,7 +432,6 @@
       .modal-img { height: 300px; }
       .modal-info { padding: 1.5rem; }
 
-      /* Footer spacing on mobile */
       .footer{ padding: 3.4rem 1.25rem 2.4rem; }
       .footer-big{ font-size: 14vw; margin-bottom: 1.8rem; }
       .footer-links a{ font-size: 1.2rem; }
@@ -562,7 +575,8 @@
           companyNameFull: "Null Up.LLC Inc.",
           heroTitle: "CREATING<br>GAMING TRENDS.",
           marquee: "CREATING NEW GAMING TRENDS WITH NEW TECHNOLOGY! / ",
-          lead: "We empower challengers shaping the future.<br>Where innovative technology takes root,<br>new possibilities for games & entertainment begin to unfold.",
+          /* English is now styled exactly like Japanese (headline + subtitle) */
+          lead: "<span class=\"lead-head\">Build the future with challengers.</span><span class=\"lead-sub\">Null Up supports companies expanding entertainment possibilities through new technology.</span>",
           business: "Game & entertainment support / Sales outsourcing / M&A advisory",
           sections: {
             sec1Title: "01 / Manifesto",
@@ -590,7 +604,6 @@
     function safeSetHTML(id, html) { const el = $(id); if (!el) return false; el.innerHTML = html; return true; }
 
     document.addEventListener('DOMContentLoaded', () => {
-      // --- language ---
       const LS_KEY = 'axis_lang';
       const btnJa = $('lang-ja');
       const btnEn = $('lang-en');
@@ -738,7 +751,6 @@
         }
       })();
 
-      // Footer links
       const footLinks = $('footer-links');
       if (footLinks) {
         footLinks.innerHTML = '';
@@ -750,7 +762,6 @@
         });
       }
 
-      // Hover image follow
       const hoverImg = $('hover-reveal');
       if (hoverImg) {
         document.addEventListener('mousemove', (e) => {
@@ -763,7 +774,6 @@
         });
       }
 
-      // Modal close
       const modal = $('modal-wrap');
       const modalClose = $('modal-close');
       const closeModal = () => {
@@ -778,14 +788,12 @@
         });
       }
 
-      // Loader (always show on every visit, wait for background image)
       const loader = document.querySelector('.loader');
       function hideLoader() {
         if (loader) loader.classList.add('hide');
         document.body.classList.add('loaded');
       }
 
-      // Include both correct and accidental double-extension filenames
       const LOADER_BG_CANDIDATES = [
         'null-up-wallpaper.jpg',
         './null-up-wallpaper.jpg',
