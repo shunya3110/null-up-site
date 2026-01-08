@@ -85,6 +85,14 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 1rem;
+      flex-wrap: wrap; /* allow wrapping on small screens */
+    }
+
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:1rem;
+      flex: 0 0 auto;
     }
 
     .lang-switch {
@@ -344,31 +352,51 @@
 
     /* Mobile */
     @media (max-width: 900px) {
-      header { padding: 1.5rem; }
-      .hero-title { font-size: 18vw; margin-top: 2rem; }
+      header { padding: 1.25rem; }
 
-      .grid-section { grid-template-columns: 1fr; }
+      /* Header / brand (fix mobile collapse) */
+      .header-top { align-items: center; gap: 0.75rem; }
+      .brand { min-height: 28px; gap: 0.5rem; }
+      .brand-mark { width: 28px; height: 28px; }
+      .logo { font-size: 1.25rem; }
+
+      .header-actions { gap: 0.75rem; }
+      .lang-switch { padding: 0.2rem; }
+      .lang-btn { font-size: 0.78rem; padding: 0.42rem 0.7rem; }
+
+      .hero-title { font-size: 16vw; margin: 1.6rem 0 0.75rem; }
+
+      .grid-section { grid-template-columns: 1fr; background-image: none; }
       .sticky-col {
         position: relative;
         height: auto;
-        padding: 1.2rem 1.5rem;
+        padding: 1.1rem 1.25rem;
         border-right: none;
         border-bottom: var(--border-width) solid var(--border);
       }
       .grid-section::before { display: none; }
 
-      .big-lead { font-size: 1.5rem; padding: 1.8rem 1.5rem; }
-      .work-item { padding: 1.8rem 1.5rem; }
-      .work-title { font-size: 2rem; margin-top: 0.75rem; }
+      .big-lead { font-size: 1.45rem; padding: 1.6rem 1.25rem; }
+      .work-item { padding: 1.6rem 1.25rem; }
+      .work-title { font-size: 2rem; margin-top: 0.5rem; }
       .cursor-img { display: none; }
 
-      .company-table th, .company-table td { display: block; width: 100%; padding: 0.9rem 1.5rem; }
+      .company-table th, .company-table td { display: block; width: 100%; padding: 0.85rem 1.25rem; }
       .company-table th { padding-bottom: 0; color: var(--accent); font-size: 0.8rem; }
       .company-table td { padding-top: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
 
       .modal-content { grid-template-columns: 1fr; max-height: 80vh; }
       .modal-img { height: 300px; }
       .modal-info { padding: 1.5rem; }
+    }
+
+    /* Extra small phones */
+    @media (max-width: 420px) {
+      header { padding: 1.05rem; }
+      .logo { font-size: 1.1rem; }
+      .brand-mark { width: 26px; height: 26px; }
+      .lang-btn { font-size: 0.75rem; padding: 0.38rem 0.6rem; }
+      .hero-title { font-size: 15.5vw; line-height: 0.92; }
     }
   </style>
 </head>
@@ -403,7 +431,7 @@
         <div id="brand-name" class="logo">Null Up.LLC</div>
       </div>
 
-      <div style="display:flex; align-items:center; gap:1rem;">
+      <div class="header-actions">
         <div id="brand-role" class="u-caps brand-role"></div>
         <nav class="lang-switch" aria-label="Language">
           <button class="lang-btn" type="button" id="lang-ja" aria-pressed="false">日本語</button>
