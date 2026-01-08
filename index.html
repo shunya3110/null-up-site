@@ -340,12 +340,22 @@
     .company-table th { width: 30%; font-weight: 600; color: var(--text-sub); }
     .company-table td { font-weight: 400; line-height: 1.6; }
 
+    /* Footer */
+    .footer{
+      border-top: var(--border-width) solid var(--border);
+      padding: 6rem 4rem 3rem;
+    }
+    .footer-links{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 1.6rem;
+    }
+
     .footer-big { font-size: 10vw; font-weight: 900; line-height: 0.9; margin-bottom: 4rem; }
     .footer-links a {
       color: #fff;
       text-decoration: none;
       font-size: 1.5rem;
-      margin-right: 2rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.25);
     }
     .footer-links a:hover { color: var(--accent); border-color: var(--accent); }
@@ -354,8 +364,12 @@
     @media (max-width: 900px) {
       header { padding: 1.25rem; }
 
-      /* Header / brand (fix mobile collapse) */
-      .header-top { align-items: center; gap: 0.75rem; }
+      /* Header / brand (mobile: stack to avoid overflow) */
+      .header-top { flex-direction: column; align-items: stretch; gap: 0.9rem; }
+      .brand { width: 100%; max-width: 100%; min-width: 0; }
+      .logo { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .header-actions { width: 100%; justify-content: space-between; }
+
       .brand { min-height: 28px; gap: 0.5rem; }
       .brand-mark { width: 28px; height: 28px; }
       .logo { font-size: 1.25rem; }
@@ -388,11 +402,19 @@
       .modal-content { grid-template-columns: 1fr; max-height: 80vh; }
       .modal-img { height: 300px; }
       .modal-info { padding: 1.5rem; }
+
+      /* Footer spacing on mobile */
+      .footer{ padding: 3.4rem 1.25rem 2.4rem; }
+      .footer-big{ font-size: 14vw; margin-bottom: 1.8rem; }
+      .footer-links a{ font-size: 1.2rem; }
     }
 
     /* Extra small phones */
     @media (max-width: 420px) {
       header { padding: 1.05rem; }
+      .footer{ padding: 3rem 1.05rem 2.2rem; }
+      .footer-big{ font-size: 15vw; }
+
       .logo { font-size: 1.1rem; }
       .brand-mark { width: 26px; height: 26px; }
       .lang-btn { font-size: 0.75rem; padding: 0.38rem 0.6rem; }
