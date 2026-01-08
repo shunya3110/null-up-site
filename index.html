@@ -70,21 +70,37 @@
     }
     .loader.hide { transform: translateY(-100%); }
 
-    /* Header */
     header {
-      min-height: auto;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       padding: 2vw 2vw 1vw;
       position: relative;
     }
+
     .header-top {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       gap: 1rem;
       flex-wrap: wrap;
+    }
+
+    /* Mobile logo image */
+    .mobile-logo-wrap{
+      display:none; /* default hidden */
+      width:100%;
+      justify-content:center;
+      align-items:center;
+      padding: 0.25rem 0 0.1rem;
+    }
+    .mobile-logo-img{
+      width:min(560px, 92vw);
+      height:auto;
+      display:block;
+      border-radius: 14px;
+      overflow:hidden;
+      object-fit: contain; /* never crop */
     }
 
     .header-actions{
@@ -201,13 +217,25 @@
         linear-gradient(
           to right,
           transparent calc(18% - (var(--border-width) / 2)),
-          var(--border) calc(18% - (var(--border-width) / 2)),
-          var(--border) calc(18% + (var(--border-width) / 2)),
+          var(--border calc(18% - (var(--border-width) / 2))),
+          var(--border calc(18% + (var(--border-width) / 2))),
           transparent calc(18% + (var(--border-width) / 2))
         );
       background-repeat: no-repeat;
       background-size: 100% 100%;
     }
+    /* Fix: CSS function above had invalid nesting in some engines — use correct version */
+    .grid-section {
+      background-image:
+        linear-gradient(
+          to right,
+          transparent calc(18% - (var(--border-width) / 2)),
+          var(--border) calc(18% - (var(--border-width) / 2)),
+          var(--border) calc(18% + (var(--border-width) / 2)),
+          transparent calc(18% + (var(--border-width) / 2))
+        );
+    }
+
     .grid-section::after {
       content: "";
       position: absolute;
@@ -233,14 +261,12 @@
       top: 0;
       height: fit-content;
       align-self: start;
-      background: transparent;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
       gap: 0.75rem;
       z-index: 1;
     }
-    .content-col { padding: 0; position: relative; background: var(--bg); }
+    .content-col { padding: 0; background: var(--bg); }
 
     /* Manifesto */
     .big-lead {
@@ -361,7 +387,6 @@
       flex-wrap: wrap;
       gap: 1rem 1.6rem;
     }
-
     .footer-big { font-size: 10vw; font-weight: 900; line-height: 0.9; margin-bottom: 4rem; }
     .footer-links a {
       color: #fff;
@@ -371,39 +396,20 @@
     }
     .footer-links a:hover { color: var(--accent); border-color: var(--accent); }
 
-    /* Mobile */
+    /* --- Mobile switching logic (完成版) --- */
+    /* default: desktop brand visible, mobile image hidden */
+    .brand { display: inline-flex; }
+    .mobile-logo-wrap { display: none; }
+
+    /* when we decided "is-mobile" => switch */
+    body.is-mobile .brand { display: none !important; }
+    body.is-mobile .mobile-logo-wrap { display: flex !important; }
+
+    /* Responsive layout for narrow viewports */
     @media (max-width: 900px) {
       header { padding: 1.25rem; }
-
-      /* Make the logo block perfectly centered on mobile */
       .header-top { flex-direction: column; align-items: center; gap: 0.9rem; }
-
-      .brand {
-        width: 100%;
-        max-width: 100%;
-        min-width: 0;
-        justify-content: center;
-      }
-      .logo {
-        max-width: calc(100vw - 2.5rem);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        text-align: center;
-      }
-
-      .header-actions{
-        width: 100%;
-        justify-content: center;
-      }
-
-      .brand { min-height: 28px; gap: 0.5rem; }
-      .brand-mark { width: 28px; height: 28px; }
-      .logo { font-size: 1.25rem; }
-
-      .lang-switch { padding: 0.2rem; }
-      .lang-btn { font-size: 0.78rem; padding: 0.42rem 0.7rem; }
-
+      .header-actions { width: 100%; justify-content: center; }
       .hero-title { font-size: 16vw; margin: 1.6rem 0 0.75rem; }
 
       .grid-section { grid-template-columns: 1fr; background-image: none; }
@@ -437,19 +443,17 @@
       .footer-links a{ font-size: 1.2rem; }
     }
 
-    /* Extra small phones */
     @media (max-width: 420px) {
       header { padding: 1.05rem; }
       .footer{ padding: 3rem 1.05rem 2.2rem; }
       .footer-big{ font-size: 15vw; }
-
-      .logo { font-size: 1.1rem; }
-      .brand-mark { width: 26px; height: 26px; }
       .lang-btn { font-size: 0.75rem; padding: 0.38rem 0.6rem; }
       .hero-title { font-size: 15.5vw; line-height: 0.92; }
+      .mobile-logo-img { width: min(560px, 94vw); border-radius: 12px; }
     }
   </style>
 </head>
+
 <body>
   <div class="loader" aria-label="Null Up loading" role="img">
     <div class="loader-sr">Loading…</div>
@@ -470,6 +474,25 @@
 
   <header>
     <div class="header-top">
+      <!-- ✅ Mobile only image -->
+      <div class="mobile-logo-wrap" id="mobileLogoWrap" aria-hidden="true">
+        <img
+          class="mobile-logo-img"
+          src="imagenull-up-wallpaper-mobile.jpeg"
+          alt="Null Up"
+          onerror="
+            (function(){
+              var w=document.getElementById('mobileLogoWrap');
+              if(w) w.style.display='none';
+              var b=document.querySelector('.brand');
+              if(b) b.style.display='inline-flex';
+              document.body.classList.remove('is-mobile');
+            })();
+          "
+        />
+      </div>
+
+      <!-- Desktop brand -->
       <div class="brand">
         <span class="brand-mark" aria-hidden="true">
           <svg viewBox="160 98 60 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Null Up mark">
@@ -489,6 +512,7 @@
         </nav>
       </div>
     </div>
+
     <h1 class="hero-title" id="hero-title"></h1>
   </header>
 
@@ -545,6 +569,24 @@
   </footer>
 
   <script>
+    // --- Mobile-like detection (width + touch + UA) ---
+    function computeIsMobileLike() {
+      const isNarrow = window.matchMedia && window.matchMedia('(max-width: 900px)').matches;
+      const hasTouch = (navigator.maxTouchPoints || 0) > 0;
+      const ua = navigator.userAgent || '';
+      const uaMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(ua);
+      return Boolean(isNarrow && (hasTouch || uaMobile));
+    }
+
+    function applyMobileClass() {
+      if (computeIsMobileLike()) document.body.classList.add('is-mobile');
+      else document.body.classList.remove('is-mobile');
+    }
+
+    // keep in sync on rotate/resize
+    window.addEventListener('resize', applyMobileClass);
+    window.addEventListener('orientationchange', applyMobileClass);
+
     const config = {
       locales: {
         ja: {
@@ -575,7 +617,6 @@
           companyNameFull: "Null Up.LLC Inc.",
           heroTitle: "CREATING<br>GAMING TRENDS.",
           marquee: "CREATING NEW GAMING TRENDS WITH NEW TECHNOLOGY! / ",
-          /* English is now styled exactly like Japanese (headline + subtitle) */
           lead: "<span class=\"lead-head\">Build the future with challengers.</span><span class=\"lead-sub\">Null Up supports companies expanding entertainment possibilities through new technology.</span>",
           business: "Game & entertainment support / Sales outsourcing / M&A advisory",
           sections: {
@@ -600,10 +641,13 @@
     };
 
     function $(id) { return document.getElementById(id); }
-    function safeSetText(id, text) { const el = $(id); if (!el) return false; el.textContent = text; return true; }
-    function safeSetHTML(id, html) { const el = $(id); if (!el) return false; el.innerHTML = html; return true; }
+    function safeSetText(id, text) { const el = $(id); if (!el) return; el.textContent = text; }
+    function safeSetHTML(id, html) { const el = $(id); if (!el) return; el.innerHTML = html; }
 
     document.addEventListener('DOMContentLoaded', () => {
+      // apply mobile switch class immediately
+      applyMobileClass();
+
       const LS_KEY = 'axis_lang';
       const btnJa = $('lang-ja');
       const btnEn = $('lang-en');
@@ -611,28 +655,6 @@
       function setPressed(lang) {
         if (btnJa) btnJa.setAttribute('aria-pressed', lang === 'ja' ? 'true' : 'false');
         if (btnEn) btnEn.setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
-      }
-
-      function guessFromNavigator() {
-        const lang = (navigator.language || '').toLowerCase();
-        const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || '').toLowerCase();
-        if (lang.startsWith('ja') || tz.includes('tokyo')) return 'ja';
-        return 'en';
-      }
-
-      async function guessFromCountry() {
-        const controller = new AbortController();
-        const t = setTimeout(() => controller.abort(), 2500);
-        try {
-          const res = await fetch('https://ipapi.co/country/', { signal: controller.signal, cache: 'no-store' });
-          const txt = (await res.text()).trim().toUpperCase();
-          if (txt === 'JP') return 'ja';
-          return 'en';
-        } catch (_) {
-          return guessFromNavigator();
-        } finally {
-          clearTimeout(t);
-        }
       }
 
       function applyHeroTitle(heroTitle) {
@@ -741,15 +763,8 @@
 
       let initial = null;
       try { initial = localStorage.getItem(LS_KEY); } catch (_) {}
-
-      (async () => {
-        if (initial === 'ja' || initial === 'en') {
-          applyLang(initial, 'auto');
-        } else {
-          const guessed = await guessFromCountry();
-          applyLang(guessed, 'auto');
-        }
-      })();
+      if (initial !== 'ja' && initial !== 'en') initial = 'ja';
+      applyLang(initial, 'auto');
 
       const footLinks = $('footer-links');
       if (footLinks) {
@@ -788,56 +803,13 @@
         });
       }
 
+      // Loader behavior (simple + stable)
       const loader = document.querySelector('.loader');
       function hideLoader() {
         if (loader) loader.classList.add('hide');
         document.body.classList.add('loaded');
       }
-
-      const LOADER_BG_CANDIDATES = [
-        'null-up-wallpaper.jpg',
-        './null-up-wallpaper.jpg',
-        'null-up-wallpaper.jpg.jpg',
-        './null-up-wallpaper.jpg.jpg',
-        'image/null-up-wallpaper.jpg',
-        'image/null-up-wallpaper.jpg.jpg',
-        'assets/null-up-wallpaper.jpg',
-        'assets/null-up-wallpaper.jpg.jpg'
-      ];
-
-      function setLoaderBg(url) {
-        if (!loader) return;
-        loader.style.backgroundImage = `url("${url}")`;
-        loader.style.backgroundPosition = 'center';
-        loader.style.backgroundSize = 'cover';
-        loader.style.backgroundRepeat = 'no-repeat';
-      }
-
-      async function loadFirstAvailable(candidates) {
-        for (const raw of candidates) {
-          const url = encodeURI(raw);
-          const probe = new Image();
-          const ok = await new Promise((resolve) => {
-            probe.onload = () => resolve(true);
-            probe.onerror = () => resolve(false);
-            probe.src = url;
-          });
-          if (ok) return url;
-        }
-        return null;
-      }
-
-      (async () => {
-        if (loader) loader.style.backgroundColor = 'var(--bg)';
-        const found = await loadFirstAvailable(LOADER_BG_CANDIDATES);
-        if (found) {
-          setLoaderBg(found);
-          setTimeout(hideLoader, 1200);
-        } else {
-          console.warn('[Loader] background image not found. Tried:', LOADER_BG_CANDIDATES);
-          setTimeout(hideLoader, 600);
-        }
-      })();
+      setTimeout(hideLoader, 900);
     });
   </script>
 </body>
