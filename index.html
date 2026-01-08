@@ -16,18 +16,16 @@
       --border:rgba(255,255,255,.25);
       --border-width:2px;
 
-      /* ✅ PCはこれ */
+      /* ✅ PC splash image */
       --loader-bg: url("null-up-wallpaper.jpg");
     }
-
-    /* ✅ スマホは確実にこれ（JS判定なし） */
+    /* ✅ Mobile splash image (確実に切替：JS判定なし) */
     @media (max-width: 900px){
-      :root{
-        --loader-bg: url("imagenull-up-wallpaper-mobile.jpeg");
-      }
+      :root{ --loader-bg: url("imagenull-up-wallpaper-mobile.jpg"); }
     }
 
-    *{box-sizing:border-box;}
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
       background:var(--bg);
@@ -39,31 +37,27 @@
     .u-caps{ text-transform:uppercase; letter-spacing:.05em; font-size:.75rem; font-weight:600; }
 
     /* =========================
-       Loader / Splash
-       - テキスト無し（画像だけ）
+       Splash / Loader (画像だけ)
        ========================= */
     .loader{
       position:fixed; inset:0;
       z-index:9999;
-      background: var(--bg);
-      opacity:1;
+      background:var(--bg);
       transform: translateY(0);
-      transition: transform .8s cubic-bezier(.76,0,.24,1), opacity .25s ease;
+      transition: transform .85s cubic-bezier(.76,0,.24,1);
     }
     .loader::before{
       content:"";
       position:absolute; inset:0;
       background-image: var(--loader-bg);
-      background-size: cover;
+      background-repeat:no-repeat;
+
+      /* ✅ 切れずに収める（今回作った画像にも優しい） */
+      background-size: contain;
       background-position: center;
-      background-repeat: no-repeat;
-      z-index:-2;
-    }
-    .loader::after{
-      content:"";
-      position:absolute; inset:0;
-      background: rgba(61,61,149,.10);
-      z-index:-1;
+
+      /* 画像の周りの余白色を合わせる */
+      background-color: var(--bg);
     }
     .loader.hide{
       transform: translateY(-110%);
@@ -71,7 +65,7 @@
     }
 
     /* =========================
-       Header（サイト本文にロゴ画像は出さない）
+       Header (サイト本文にはロゴ画像出さない)
        ========================= */
     header{ padding: 2vw 2vw 1vw; }
     .header-top{
@@ -180,7 +174,7 @@
       height:fit-content;
       align-self:start;
       display:flex;
-      flex-direction:column;
+      flex-directionFlex-direction:column;
       gap:.75rem;
       z-index:1;
     }
@@ -209,15 +203,35 @@
       color:var(--text-sub);
     }
 
-    /* Works */
+    /* Works: clickable cards */
     .work-item{
       border-bottom:1px solid rgba(255,255,255,.18);
       padding:3rem 4rem;
-      transition:background .3s;
+      transition:background .25s ease;
+      cursor:pointer;
+      user-select:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1.5rem;
     }
     .work-item:last-child{ border-bottom:none; }
     .work-item:hover{ background:rgba(255,255,255,.06); }
     .work-title{ font-size:4vw; margin:0; font-weight:800; line-height:1; }
+    .work-cta{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      font-size:.95rem;
+      color:rgba(255,255,255,.85);
+      border:1px solid rgba(255,255,255,.20);
+      padding:.55rem .9rem;
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      backdrop-filter: blur(6px);
+      white-space:nowrap;
+    }
+    .work-item:active{ transform: translateY(1px); }
 
     /* Profile */
     .company-table{ width:100%; border-collapse:collapse; }
@@ -240,6 +254,86 @@
       border-bottom:1px solid rgba(255,255,255,.25);
     }
 
+    /* =========================
+       Modal (Works popup)
+       ========================= */
+    .modal{
+      position:fixed; inset:0;
+      z-index:10000;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: min(4vw, 24px);
+      background: rgba(7,7,22,.62);
+      backdrop-filter: blur(8px);
+    }
+    .modal[aria-hidden="false"]{ display:flex; }
+    .modal-card{
+      width: min(980px, 100%);
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.06);
+      box-shadow: 0 25px 80px rgba(0,0,0,.35);
+    }
+    .modal-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      padding: 16px 16px 10px;
+    }
+    .modal-title{
+      font-size: 1.05rem;
+      font-weight: 900;
+      letter-spacing: -.02em;
+      margin:0;
+    }
+    .modal-close{
+      appearance:none;
+      border:1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.08);
+      color:#fff;
+      border-radius: 12px;
+      padding: 10px 12px;
+      cursor:pointer;
+      font-weight: 800;
+    }
+    .modal-body{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 0;
+      border-top: 1px solid rgba(255,255,255,.14);
+    }
+    .modal-media{
+      position:relative;
+      background: rgba(0,0,0,.18);
+      min-height: 320px;
+    }
+    .modal-media img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit: contain;           /* ✅ 画像を切らない */
+      background: var(--bg);
+    }
+    .modal-text{
+      padding: 18px 18px 20px;
+      border-left: 1px solid rgba(255,255,255,.14);
+    }
+    .modal-desc{
+      margin:0;
+      line-height:1.75;
+      color: rgba(255,255,255,.92);
+      font-weight: 600;
+      font-size: .98rem;
+    }
+    .modal-hint{
+      margin: 12px 0 0;
+      opacity: .7;
+      font-size: .85rem;
+    }
+
     /* Responsive */
     @media (max-width: 900px){
       header{ padding:1.25rem; }
@@ -257,8 +351,13 @@
       .big-lead .lead-head{ font-size: clamp(1.85rem, 6vw, 2.4rem); }
       .big-lead .lead-sub{ font-size: clamp(1.0rem, 3.8vw, 1.25rem); }
 
-      .work-item{ padding:1.6rem 1.25rem; }
+      .work-item{
+        padding:1.4rem 1.25rem;
+        flex-direction:column;
+        align-items:flex-start;
+      }
       .work-title{ font-size:2rem; }
+      .work-cta{ align-self:flex-start; }
 
       .company-table th,.company-table td{ display:block; width:100%; padding:.85rem 1.25rem; }
       .company-table th{ padding-bottom:0; color:#fff; font-size:.8rem; }
@@ -267,6 +366,15 @@
       .footer{ padding:3.4rem 1.25rem 2.4rem; }
       .footer-big{ font-size:14vw; margin-bottom:1.8rem; }
       .footer-links a{ font-size:1.2rem; }
+
+      .modal-body{
+        grid-template-columns: 1fr;
+      }
+      .modal-text{
+        border-left: 0;
+        border-top: 1px solid rgba(255,255,255,.14);
+      }
+      .modal-media{ min-height: 260px; }
     }
 
     @media (max-width: 420px){
@@ -278,8 +386,27 @@
 </head>
 
 <body>
-  <!-- ✅ 画像だけのスプラッシュ（テキスト無し） -->
+  <!-- ✅ Splash (画像だけ) -->
   <div class="loader" id="loader" aria-hidden="true"></div>
+
+  <!-- ✅ Works popup modal -->
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-card" role="document">
+      <div class="modal-top">
+        <h3 class="modal-title" id="modalTitle">Title</h3>
+        <button class="modal-close" id="modalClose" type="button" aria-label="Close">Close</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-media">
+          <img id="modalImg" alt="" loading="eager" />
+        </div>
+        <div class="modal-text">
+          <p class="modal-desc" id="modalDesc"></p>
+          <p class="modal-hint" id="modalHint">Tap outside / press ESC to close</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <header>
     <div class="header-top">
@@ -330,6 +457,13 @@
 
   <script>
     const config = {
+      // Works画像（リポジトリの image/ フォルダ）
+      worksImages: {
+        1: "image/image1.jpg",
+        2: "image/image2.jpg",
+        3: "image/image3.jpg",
+        4: "image/image4.jpg",
+      },
       locales: {
         ja: {
           heroTitle: "CREATING<br>GAMING TRENDS.",
@@ -340,6 +474,8 @@
           footerTitle: "LET'S TALK.",
           business: "ゲーム・エンタメ企業支援 / 営業代行 / M＆A支援",
           footerCopy: "Null Up.LLC",
+          modalHint: "画面外タップ / ESC で閉じる",
+          cta: "View",
           workText: {
             1:{ title:"Blockchain", desc:"ブロックチェーンゲーム企業を支援し、安心安全なオンボーディングから大手PF連携、グラント獲得まで一貫して伴走します。" },
             2:{ title:"AI", desc:"AIを活用した新規サービス創出から、AIツールの営業代行まで。事業成長を加速させる実践的な支援を提供します。" },
@@ -356,6 +492,8 @@
           footerTitle: "LET'S TALK.",
           business: "Game & entertainment support / Sales outsourcing / M&A advisory",
           footerCopy: "Null Up.LLC",
+          modalHint: "Tap outside / press ESC to close",
+          cta: "View",
           workText: {
             1:{ title:"Blockchain", desc:"We support blockchain game teams end-to-end—from safe onboarding to major platform partnerships and grant acquisition." },
             2:{ title:"AI", desc:"From creating new services with AI to outbound sales for AI tools—we deliver practical support that accelerates growth." },
@@ -371,22 +509,109 @@
     const setHTML = (id, html)=>{ const el=$(id); if(el) el.innerHTML=html; };
     const setText = (id, t)=>{ const el=$(id); if(el) el.textContent=t; };
 
+    let currentLang = "ja";
+
+    /* =========================
+       Loader hide
+       ========================= */
+    function hideLoader(){
+      const loader = $("loader");
+      if(!loader) return;
+      loader.classList.add("hide");
+      setTimeout(()=>{ loader.style.display="none"; }, 1200);
+    }
+
+    /* =========================
+       Modal
+       ========================= */
+    function openModal({title, desc, imgSrc}){
+      const modal = $("modal");
+      if(!modal) return;
+
+      $("modalTitle").textContent = title;
+      $("modalDesc").textContent = desc;
+
+      const img = $("modalImg");
+      img.alt = title;
+      img.src = imgSrc;
+
+      $("modalHint").textContent = config.locales[currentLang].modalHint;
+
+      modal.setAttribute("aria-hidden","false");
+      document.body.style.overflow = "hidden";
+    }
+    function closeModal(){
+      const modal = $("modal");
+      if(!modal) return;
+      modal.setAttribute("aria-hidden","true");
+      document.body.style.overflow = "";
+    }
+
+    function wireModalEvents(){
+      const modal = $("modal");
+      const closeBtn = $("modalClose");
+      if(closeBtn) closeBtn.addEventListener("click", closeModal);
+
+      // 外側クリックで閉じる
+      if(modal){
+        modal.addEventListener("click", (e)=>{
+          if(e.target === modal) closeModal();
+        });
+      }
+
+      // ESCで閉じる
+      document.addEventListener("keydown", (e)=>{
+        if(e.key === "Escape"){
+          const isOpen = modal && modal.getAttribute("aria-hidden") === "false";
+          if(isOpen) closeModal();
+        }
+      });
+    }
+
+    /* =========================
+       Works build (clickable)
+       ========================= */
     function buildWorks(pack){
       const cont = $("works-container");
       if(!cont) return;
+
       cont.innerHTML = "";
       for(let i=1;i<=4;i++){
         const info = pack.workText[i];
+        const imgSrc = config.worksImages[i];
+
         const item = document.createElement("div");
         item.className = "work-item";
-        item.innerHTML = `<h3 class="work-title">${info.title}</h3>`;
+        item.setAttribute("role","button");
+        item.setAttribute("tabindex","0");
+        item.setAttribute("aria-label", `${info.title} open`);
+
+        item.innerHTML = `
+          <h3 class="work-title">${info.title}</h3>
+          <span class="work-cta">${pack.cta} →</span>
+        `;
+
+        const open = ()=>openModal({ title: info.title, desc: info.desc, imgSrc });
+
+        item.addEventListener("click", open);
+        item.addEventListener("keydown", (e)=>{
+          if(e.key === "Enter" || e.key === " "){
+            e.preventDefault();
+            open();
+          }
+        });
+
         cont.appendChild(item);
       }
     }
 
+    /* =========================
+       i18n apply
+       ========================= */
     function applyLang(lang, source="auto"){
       const pack = config.locales[lang] || config.locales.ja;
-      document.documentElement.lang = lang;
+      currentLang = (lang === "en") ? "en" : "ja";
+      document.documentElement.lang = currentLang;
 
       $("hero-title").innerHTML = pack.heroTitle;
       setHTML("main-lead", pack.lead);
@@ -403,29 +628,24 @@
       setText("year", String(new Date().getFullYear()));
 
       const ja = $("lang-ja"), en = $("lang-en");
-      if(ja) ja.setAttribute("aria-pressed", lang==="ja" ? "true" : "false");
-      if(en) en.setAttribute("aria-pressed", lang==="en" ? "true" : "false");
+      if(ja) ja.setAttribute("aria-pressed", currentLang==="ja" ? "true" : "false");
+      if(en) en.setAttribute("aria-pressed", currentLang==="en" ? "true" : "false");
 
       if(source==="user"){
-        try{ localStorage.setItem("axis_lang", lang); }catch(e){}
+        try{ localStorage.setItem("axis_lang", currentLang); }catch(e){}
       }
     }
 
-    function hideLoader(){
-      const loader = $("loader");
-      if(!loader) return;
-      loader.classList.add("hide");
-      setTimeout(()=>{ loader.style.display="none"; }, 1200);
-    }
-
     document.addEventListener("DOMContentLoaded", ()=>{
-      // ローダーは一瞬見せてから消す（画像読込待ちはしない：体感優先）
+      // ✅ スプラッシュは少し見せてから消す
       setTimeout(hideLoader, 850);
 
+      // Lang buttons
       const ja = $("lang-ja"), en = $("lang-en");
       if(ja) ja.addEventListener("click", ()=>applyLang("ja","user"));
       if(en) en.addEventListener("click", ()=>applyLang("en","user"));
 
+      // Initial language
       let initial="ja";
       try{
         const saved = localStorage.getItem("axis_lang");
@@ -433,6 +653,7 @@
       }catch(e){}
       applyLang(initial,"auto");
 
+      // Footer links
       const links = $("footer-links");
       if(links){
         links.innerHTML = "";
@@ -442,6 +663,9 @@
           links.appendChild(a);
         });
       }
+
+      // Modal events
+      wireModalEvents();
     });
   </script>
 </body>
